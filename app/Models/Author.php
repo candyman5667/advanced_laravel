@@ -1,29 +1,23 @@
 <?php
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Author extends Model
+class Book extends Model
 {
-    use HasFactory;
-
-    protected $fillable = ['name', 'age', 'nationality'];
-
+    protected $guarded = array('id');
     public static $rules = array(
-        'name' => 'required',
-        'age' => 'integer|min:0|max:150',
-        'nationality' => 'required'
+        'author_id' => 'required',
+        'title' => 'required',
     );
-    public function getDetail()
+    public function getTitle()
     {
-        $txt = 'ID:' . $this->id . ' ' . $this->name . '(' . $this->age .  '才' . ') ' . $this->nationality;
-        return $txt;
+        return 'ID' . $this->id . ':' . $this->title . ' 著者:' . optional($this->author)->name;
     }
-    public function book()
-    {
-        return $this->hasOne('App\Models\Book');
+    public function author()
+    { //追記
+        return $this->belongsTo('App\Models\Author');
     }
 }

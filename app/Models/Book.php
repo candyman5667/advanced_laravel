@@ -13,8 +13,10 @@ class Book extends Model
         'title' => 'required',
 
     );
-    public function getTitle()
-    {
-        return 'ID' . $this->id . ':' . $this->title;
+    public function getTitle(){
+        return 'ID'.$this->id. ':'.$this->title.'青春:'.optiona($this->author)->name;
+    }
+    public function author(){
+        return $this->belongsTo('App\Models\Author');
     }
 }
